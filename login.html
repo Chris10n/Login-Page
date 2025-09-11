@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Parallax Effect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #f9fafb;
+            --foreground: #4b5563;
+            --card: #ffffff;
+            --card-foreground: #4b5563;
+            --primary: #0891b2;
+            --primary-foreground: #ffffff;
+            --secondary: #ec4899;
+            --accent: #ec4899;
+            --border: #e5e7eb;
+            --input: #ffffff;
+            --ring: rgba(8, 145, 178, 0.5);
+            --radius: 0.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            overflow-x: hidden;
+            height: 200vh; /* Enable scrolling for parallax */
+        }
+
+        /* Parallax Background Layers */
+        .parallax-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 120%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .layer-1 {
+            background: linear-gradient(135deg, var(--primary) 0%, #06b6d4 50%, var(--secondary) 100%);
+            transform: translateZ(0);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .layer-2 {
+            background: url('/placeholder.svg?height=800&width=1200') center/cover;
+            opacity: 0.1;
+            transform: translateZ(0);
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        .layer-3 {
+            background: url('/placeholder.svg?height=600&width=1000') center/cover;
+            opacity: 0.05;
+            transform: translateZ(0);
+            animation: float 25s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.02); }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-container {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 400px;
+            transform: translateY(0);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: var(--foreground);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--card-foreground);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--input);
+            color: var(--card-foreground);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--ring);
+            transform: translateY(-1px);
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            background: #0e7490;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(8, 145, 178, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider span {
+            background: var(--card);
+            padding: 0 1rem;
+            color: var(--foreground);
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .forgot-password a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .signup-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: var(--accent);
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatRandom 10s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatRandom {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(15px) rotate(240deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 640px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .login-container {
+                padding: 2rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Parallax Scroll Effect */
+        .parallax-scroll {
+            transform: translateY(0);
+            transition: transform 0.1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Parallax Background -->
+    <div class="parallax-container">
+        <div class="parallax-layer layer-1"></div>
+        <div class="parallax-layer layer-2"></div>
+        <div class="parallax-layer layer-3"></div>
+        
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 60px; height: 60px; background: rgba(8, 145, 178, 0.1); border-radius: 50%;"></div>
+        <div class="floating-element" style="width: 40px; height: 40px; background: rgba(236, 72, 153, 0.1); border-radius: 50%;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; background: rgba(8, 145, 178, 0.05); border-radius: 50%;"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="login-container parallax-scroll">
+            <div class="logo">
+                <h1>Welcome Back</h1>
+                <p>Sign in to your account to continue</p>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="login-btn">Sign In</button>
+            </form>
+
+            <div class="forgot-password">
+                <a href="#" onclick="return false;">Forgot your password?</a>
+            </div>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <div class="signup-link">
+                <p>Don't have an account? <a href="#" onclick="return false;">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Parallax scroll effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax-layer');
+            const loginContainer = document.querySelector('.parallax-scroll');
+
+            // Apply different scroll speeds to background layers
+            parallaxElements.forEach((element, index) => {
+                const speed = (index + 1) * 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+
+            // Subtle parallax effect on login container
+            if (loginContainer) {
+                loginContainer.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+
+        // Add smooth entrance animation on page load
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Form submission handler (demo)
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const button = document.querySelector('.login-btn');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Signing In...';
+            button.style.background = '#0e7490';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = 'var(--primary)';
+                alert('Demo: Login form submitted!');
+            }, 2000);
+        });
+
+        // Add subtle mouse movement parallax
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            const floatingElements = document.querySelectorAll('.floating-element');
+            floatingElements.forEach((element, index) => {
+                const speed = (index + 1) * 10;
+                const x = (mouseX - 0.5) * speed;
+                const y = (mouseY - 0.5) * speed;
+                element.style.transform += ` translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
