@@ -9,11 +9,11 @@ A beautiful, modern login page featuring an elegant brown and white color scheme
 
 ##  Features
 
-- ** Parallax Scrolling Effect** - Multi-layered background with smooth parallax animation
-- ** Glowing Effects** - Beautiful glowing shadows on hover and focus states
-- ** Brown & White Aesthetic** - Elegant color scheme with warm brown tones and clean whites
-- ** Smooth Animations** - Entrance animations and interactive hover effects
-- ** Fully Responsive** - Works seamlessly on desktop, tablet, and mobile devices
-- ** Modern UI/UX** - Clean, intuitive interface with smooth transitions
-- ** Floating Elements** - Animated decorative elements that respond to mouse movement
-- ** Form Validation** - Built-in HTML5 form validation
+- Parallax Scrolling Effect** - Multi-layered background with smooth parallax animation
+- Glowing Effects** - Beautiful glowing shadows on hover and focus states
+- Brown & White Aesthetic** - Elegant color scheme with warm brown tones and clean whites
+- Smooth Animations** - Entrance animations and interactive hover effects
+- Fully Responsive** - Works seamlessly on desktop, tablet, and mobile devices
+- Modern UI/UX** - Clean, intuitive interface with smooth transitions
+- Floating Elements** - Animated decorative elements that respond to mouse movement
+- Form Validation** - Built-in HTML5 form validation
