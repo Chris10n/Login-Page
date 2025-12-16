@@ -1,6 +1,6 @@
 # Login Page with Parallax Effect 
 
-A beautiful, modern login page featuring an elegant brown and white color scheme with stunning parallax effects, glowing shadows, and smooth animations.
+A modern login page featuring an elegant brown and white color scheme with stunning parallax effects, glowing shadows, and smooth animations.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
